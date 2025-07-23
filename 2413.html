@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>I Love You</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #a285d1;
+      overflow: hidden;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .heart-container {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      transition: top 1s ease-in-out;
+    }
+
+    .text {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hide-text {
+      display: none;
+    }
+
+    .heart {
+      width: 35px;
+      height: 35px;
+      background-color: #5c247a;
+      position: relative;
+      transform: rotate(-45deg);
+      cursor: pointer;
+      animation: pulse 1s infinite;
+      margin: 0 auto;
+      box-shadow: 0 0 25px #5c247a66;
+    }
+
+    .heart:before,
+    .heart:after {
+      content: "";
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      background-color: #5c247a;
+      border-radius: 50%;
+    }
+
+    .heart:before {
+      top: -17.5px;
+      left: 0;
+    }
+
+    .heart:after {
+      left: 17.5px;
+      top: 0;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1) rotate(-45deg);
+      }
+      50% {
+        transform: scale(1.1) rotate(-45deg);
+      }
+      100% {
+        transform: scale(1) rotate(-45deg);
+      }
+    }
+
+    .paper {
+      position: absolute;
+      bottom: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 42%;
+      height: 75%;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 0 30px #ffffffcc;
+      padding: 30px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      transition: bottom 1s ease-in-out;
+      z-index: 5;
+      opacity: 0;
+      direction: rtl;
+    }
+
+    .show-paper {
+      bottom: 10%;
+      opacity: 1;
+    }
+
+    /* دبابين بحجم أصغر يتحركون بشكل X */
+    .motorcycleX {
+      position: fixed;
+      font-size: 2rem;
+      z-index: 2;
+    }
+
+    .left-bike {
+      bottom: -5%;
+      left: -10%;
+      animation: bikeLeft 6s linear infinite;
+    }
+
+    .right-bike {
+      top: -5%;
+      right: -10%;
+      animation: bikeRight 6s linear infinite;
+    }
+
+    @keyframes bikeLeft {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(110vw, -110vh);
+      }
+    }
+
+    @keyframes bikeRight {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-110vw, 110vh);
+      }
+    }
+
+    /* قلوب تتساقط لما تضغطين على القلب */
+    .falling-heart {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      background-color: #7a3bb1;
+      transform: rotate(-45deg);
+      animation: fall 5s linear forwards;
+      z-index: 1;
+      opacity: 1;
+      box-shadow: 0 0 8px #7a3bb1aa;
+    }
+
+    .falling-heart:before,
+    .falling-heart:after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background-color: inherit;
+      border-radius: 50%;
+    }
+
+    .falling-heart:before {
+      top: -9px;
+      left: 0;
+    }
+
+    .falling-heart:after {
+      left: 9px;
+      top: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -20px;
+        opacity: 1;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0;
+      }
+    }
+
+    /* أثر الدخان */
+    .trail-smoke {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #ccc;
+      transform: rotate(-45deg);
+      animation: fadeOut 1.5s ease-out forwards;
+      opacity: 1;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #bbb;
+      z-index: 1;
+    }
+    .trail-smoke:before,
+    .trail-smoke:after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: inherit;
+      border-radius: 50%;
+    }
+    .trail-smoke:before {
+      top: -4px;
+      left: 0;
+    }
+    .trail-smoke:after {
+      left: 4px;
+      top: 0;
+    }
+
+    /* أثر القلوب الصغيرة تحت الدراجة */
+    .trail-heart {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: #7a3bb1;
+      transform: rotate(-45deg);
+      animation: fadeOut 1.5s ease-out forwards;
+      opacity: 1;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #7a3bb1cc;
+      z-index: 1;
+    }
+
+    .trail-heart:before,
+    .trail-heart:after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: inherit;
+      border-radius: 50%;
+    }
+
+    .trail-heart:before {
+      top: -4px;
+      left: 0;
+    }
+
+    .trail-heart:after {
+      left: 4px;
+      top: 0;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateY(10px) scale(0.5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="heart-container" id="heartContainer">
+    <div class="text" id="clickText">اضغطي على القلب</div>
+    <div class="heart" onclick="showLove()"></div>
+  </div>
+
+  <div class="paper" id="paper">
+    أحبك..<br><br>
+     كل شي بحياتي أسويه أو حتى أفكر فيه، تجي أنت فبالي على طول.<br>
+    ما أعرف ليش، بس اللي أعرفه وأحسه إني أحب وجودك بحياتي، وأتمنى تبقى دايم معي، وجنبي، وحولي.<br><br>
+
+    حبيت أسوي لك شي بسيط، يبقى معك وتشوفه بأي وقت، يكون ذكرى حلوة مني لك.<br>
+    وبنفس الوقت، عشان أقولك من قلبي: <strong>يزهاك الدباب الجديد يا أحلى راكب 🏍</strong><br><br>
+
+    وأتمنى كل يوم من أيامك يكون مليان سعادة، وأني أكون سبب من أسبابها.<br>
+    ما أبي أزعلك يوم، لأني أفرح من قلب إذا شفتك مبسوط، و ودي دايم أكون سبب ابتسامتك.<br>
+    ودي أكتب كلام أكثر، أو أشرح مشاعري أكثر…<br>
+    بس كل مرة أحاول، أحس الكلمات ما تكفي ولا توصل عمق إحساسي تجاهك.<br><br>
+
+    بس الشي الوحيد اللي متأكدة منه…<br>
+    إنك أجمل شي صار لي، وإن دعواتي كل يوم إنك تبقى بحياتي، <strong>دائماً و أبداً 💜</strong>
+  </div>
+
+  <!-- دبابين متحركين -->
+  <div class="motorcycleX left-bike" id="bikeSmoke">🏍</div>
+  <div class="motorcycleX right-bike" id="bikeHearts">🏍</div>
+
+  <audio
+    id="loveSound"
+    src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_ef2d792414.mp3?filename=soft-quiet-notification-132086.mp3"
+  ></audio>
+
+  <script>
+    function showLove() {
+      document.getElementById("heartContainer").style.top = "10%";
+      document.getElementById("paper").classList.add("show-paper");
+      document.getElementById("loveSound").play();
+      document.getElementById("clickText").classList.add("hide-text");
+
+      // قلوب تتساقط لما تضغط
+      for (let i = 0; i < 25; i++) {
+        createFallingHeart();
+      }
+
+      // أثر الدخان تحت الدراجة اليسرى
+      setInterval(() => createTrail("bikeSmoke", "trail-smoke"), 100);
+
+      // أثر القلوب الصغيرة تحت الدراجة اليمنى
+      setInterval(() => createTrail("bikeHearts", "trail-heart"), 100);
+    }
+
+    // قلوب بنفسجية تتساقط من الأعلى
+    function createFallingHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("falling-heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 4 + "s";
+
+      const shades = ["#5c247a", "#7b3aa6", "#9963c9", "#a87ed7"];
+      const color = shades[Math.floor(Math.random() * shades.length)];
+      heart.style.backgroundColor = color;
+      heart.querySelectorAll?.("*").forEach((el) => {
+        el.style.backgroundColor = color;
+      });
+
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    // أثر الدخان أو القلوب الصغيرة المتبخرة تحت الدراجة
+    function createTrail(bikeId, className) {
+      const bike = document.getElementById(bikeId);
+      const rect = bike.getBoundingClientRect();
+      const trail = document.createElement("div");
+      trail.className = className;
+      trail.style.left = rect.left + 10 + "px";
+      trail.style.top = rect.top + 10 + "px";
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 1500);
+    }
+  </script>
+</body>
+</html>
